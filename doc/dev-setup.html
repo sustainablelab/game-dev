@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Mike Gazes" />
+  <title>Setup Development Tools</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="pandoc.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Setup Development Tools</h1>
+<p class="author">Mike Gazes</p>
+<p class="date">January 20th, 2019</p>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#context">Context</a></li>
+<li><a href="#tasks">Tasks</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#unreal-engine">Unreal Engine</a></li>
+<li><a href="#microsoft-visual-studio-code-and-c-extension">Microsoft Visual Studio Code and C++ extension</a></li>
+<li><a href="#chocolatey-and-pandoc">Chocolatey and Pandoc</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="context">Context</h1>
+<p>Epic Games supports development under Microsoft Visual Studio. The <em>free</em> version is Microsoft Visual Studio Community 2017. This installs the necessary build tools, but a lot of other stuff as well.</p>
+<p>While not officially supported by Epic Games, community posts claim successful set up of build tools without Microsoft Visual Studio. The most promising thread I found was this one, describing a setup with Microsoft Visual Studio Code: <a href="https://answers.unrealengine.com/questions/761885/possibilities-of-coding-with-microsoft-visual-stud.html" class="uri">https://answers.unrealengine.com/questions/761885/possibilities-of-coding-with-microsoft-visual-stud.html</a></p>
+<p>According to the post, Epic Games has some project-setup support for Microsoft Visual Studio Code, a slim code editor environment that does not include any build tools. Using Micrsoft Visual Studio Code lets me focus on the one battle of adding a C++ compiler, so I am starting here instead of jumping straight to a Vim setup.</p>
+<p>Once I have a working environment with Microsoft Visual Studio Code and the Unreal Engine, I’ll replace Microsoft Visual Studio Code with Vim.</p>
+<h1 id="tasks">Tasks</h1>
+<ul>
+<li>[ ] install Unreal Engine and Microsoft Visual Studio Code with C++ extension</li>
+<li>[ ] identify a suitable C++ compiler</li>
+<li>[ ] invoke the compiler from Microsoft Visual Studio Code</li>
+<li>[ ] build a small project using Unreal Engine and Microsoft Visual Studio Code</li>
+<li>[ ] build the same project using Unreal Engine and Vim</li>
+<li>[ ] identify a unit-test framework for C++</li>
+<li>[ ] automate unit-testing with Vim</li>
+</ul>
+<h1 id="installation">Installation</h1>
+<h2 id="unreal-engine">Unreal Engine</h2>
+<ol type="1">
+<li>Create an Epic Games account.</li>
+<li>Run the installer for the Epic Games Launcher.</li>
+<li>Sign into the Epic Games Launcher.</li>
+<li>Click on <em>Unreal Engine</em> in the Epic Games Launcher and install the engine.</li>
+<li>Launch the <em>Unreal Engine</em>.</li>
+</ol>
+<h2 id="microsoft-visual-studio-code-and-c-extension">Microsoft Visual Studio Code and C++ extension</h2>
+<ol type="1">
+<li>Download Visual Studio Code.</li>
+<li>Install Visual Studio Code.</li>
+<li>Run Visual Studio Code. Click <em>Extensions View</em> on left sidebar, find <code>c++</code>, click <em>Install</em>, click <em>Reload</em>.</li>
+</ol>
+<h2 id="chocolatey-and-pandoc">Chocolatey and Pandoc</h2>
+<p>I use Pandoc to generate HTML documentation from markdown. Install Pandoc with Chocolatey.</p>
+<ol type="1">
+<li>Launch PowerShell as an Administrator and run this command:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">iex</span> ((<span class="fu">New-Object</span> System.<span class="fu">Net</span>.<span class="fu">WebClient</span>).<span class="fu">DownloadString</span>(&#39;https://chocolatey.<span class="fu">org</span>/install.<span class="fu">ps1</span>&#39;))</a></code></pre></div>
+<ol start="2" type="1">
+<li>Restart PowerShell as non-Admin.</li>
+<li>View Chocolatey help:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb2-1" title="1">choco /? | less</a></code></pre></div>
+<ol start="4" type="1">
+<li>Surprisingly to me, Chocolatey also runs under Cygwin. One benefit of this is viewing help from the Cygwin installation of Vim. For example, <code>mintty</code> from PowerShell to open a bash terminal, then create a help file for the <code>install</code> command and open it in Vim:</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="ex">choco</span> install -help <span class="op">&gt;</span> choco-install.md</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="ex">vim</span> choco-install.md</a></code></pre></div>
+<ol start="5" type="1">
+<li>Run PowerShell as Administrator and install <em>pandoc</em> with this command:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb4-1" title="1">choco install pandoc</a></code></pre></div>
+</body>
+</html>
