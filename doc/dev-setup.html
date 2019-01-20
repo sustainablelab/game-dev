@@ -93,7 +93,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#unreal-engine">Unreal Engine</a></li>
 <li><a href="#microsoft-visual-studio-code-and-c-extension">Microsoft Visual Studio Code and C++ extension</a></li>
-<li><a href="#chocolatey-and-pandoc">Chocolatey and Pandoc</a></li>
+<li><a href="#chocolatey-and-pandoc">Chocolatey and Pandoc</a><ul>
+<li><a href="#chocolatey">Chocolatey</a></li>
+<li><a href="#pandoc">Pandoc</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -118,7 +121,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Create an Epic Games account.</li>
 <li>Run the installer for the Epic Games Launcher.</li>
 <li>Sign into the Epic Games Launcher.</li>
-<li>Click on <em>Unreal Engine</em> in the Epic Games Launcher and install the engine.</li>
+<li>Click on <em>Unreal Engine</em> in the Epic Games Launcher and install the engine. This takes a while.</li>
 <li>Launch the <em>Unreal Engine</em>.</li>
 </ol>
 <h2 id="microsoft-visual-studio-code-and-c-extension">Microsoft Visual Studio Code and C++ extension</h2>
@@ -129,6 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <h2 id="chocolatey-and-pandoc">Chocolatey and Pandoc</h2>
 <p>I use Pandoc to generate HTML documentation from markdown. Install Pandoc with Chocolatey.</p>
+<h3 id="chocolatey">Chocolatey</h3>
 <ol type="1">
 <li>Launch PowerShell as an Administrator and run this command:</li>
 </ol>
@@ -143,9 +147,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="ex">choco</span> install -help <span class="op">&gt;</span> choco-install.md</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="ex">vim</span> choco-install.md</a></code></pre></div>
-<ol start="5" type="1">
+<h3 id="pandoc">Pandoc</h3>
+<ol type="1">
 <li>Run PowerShell as Administrator and install <em>pandoc</em> with this command:</li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb4-1" title="1">choco install pandoc</a></code></pre></div>
+<ol start="2" type="1">
+<li>Generate HTML documentation:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="ex">pandoc</span> -f markdown doc/dev-setup.md -s -o doc/dev-setup.html -c pandoc.css --toc</a></code></pre></div>
+<p>Note the style is included with <code>-c pandoc.css</code> and not <code>-c doc/pandoc.css</code>, even though <code>pandoc.css</code> is in the <code>doc</code> folder.</p>
 </body>
 </html>
