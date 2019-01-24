@@ -84,14 +84,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header">
 <h1 class="title">Unreal Engine</h1>
 <p class="author">Mike Gazes</p>
-<p class="date">January 20th, 2019</p>
 </header>
 <nav id="TOC">
 <ul>
+<li><a href="#doc-history">Doc history</a></li>
 <li><a href="#first-time">First time</a></li>
 <li><a href="#no-c-compiler-found">No C++ Compiler Found</a></li>
+<li><a href="#install-a-c-compiler">Install a C++ compiler</a></li>
 </ul>
 </nav>
+<h1 id="doc-history">Doc history</h1>
+<p>January 20th, 2019: Start doc. January 23rd, 2019: Visual Studio installer is like a package manager.</p>
 <h1 id="first-time">First time</h1>
 <p>Start the Unreal Engine for the first time. It is a project management environment with lots of templates for getting started, divided into tabs <em>Blueprint</em> for starting game dev without C++, and <em>C++</em> for diving immediately into C++.</p>
 <p>Unreal Projects default to the Windows User’s Documents folder: <code>C:\Users\mike\Documents\Unreal Projects</code></p>
@@ -104,5 +107,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="ex">usr/bin/g++</span></a></code></pre></div>
 <p>which means the path to <code>g++.exe</code> is <code>C:\cygwin64\bin\g++.exe</code>.</p>
 <p>Checking my path variable, I see the first item in my path is <code>C:\cygwin64\bin</code>. So why doesn’t Unreal see <code>g++</code>, my C++ compiler?</p>
+<p>I cannot edit any settings without creating a project, and I cannot create a project with a <em>C++</em> template because Unreal does not know where to find my C++ compiler.</p>
+<p>First, create a project with a <em>Blueprint</em> template.</p>
+<h1 id="install-a-c-compiler">Install a C++ compiler</h1>
 </body>
 </html>

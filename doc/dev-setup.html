@@ -84,11 +84,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header">
 <h1 class="title">Setup Your Dev Tools</h1>
 <p class="author">Mike Gazes</p>
-<p class="date">start: January 20th, 2019</p>
 </header>
 <nav id="TOC">
 <ul>
+<li><a href="#doc-history">Doc history</a></li>
 <li><a href="#context">Context</a></li>
+<li><a href="#msvc-means-many-things">MSVC means many things</a></li>
+<li><a href="#msys2-vs-msvc">MSYS2 vs MSVC</a></li>
+<li><a href="#unreal-engine-vs-no-engine-at-all">Unreal Engine vs No engine at all</a></li>
 <li><a href="#tasks">Tasks</a></li>
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#unreal-engine">Unreal Engine</a></li>
@@ -100,12 +103,128 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </nav>
-<p>% rev: January 23rd, 2019</p>
+<h1 id="doc-history">Doc history</h1>
+<p>January 20th, 2019: Start doc. January 23rd, 2019: Visual Studio installer is like a package manager.</p>
 <h1 id="context">Context</h1>
-<p>Epic Games supports development under Microsoft Visual Studio. The <em>free</em> version is Microsoft Visual Studio Community 2017. This installs the necessary build tools, but a lot of other stuff as well.</p>
+<p>Epic Games supports development under Microsoft Visual Studio. The <em>free</em> version is Microsoft Visual Studio Community 2017. This installs the necessary build tools, but a lot of other stuff as well. That bothers a lot of people. It bothered me.</p>
+<p>But it turns out the Microsoft Visual Studio installer lets you select what to install. At a minimum, you install the <em>core</em>, which is about 600MB. The core does not include a compiler. To get a compiler, you install one of the pre-defined <em>workload</em> options, probably <code>Desktop development with C++</code> or <code>Game development with C++</code>. You can also do a more granular install of individual components.</p>
+<p>To get the <em>leanest</em> set of tools, start with just the <em>core</em> and see if it has what you need.</p>
 <p>While not officially supported by Epic Games, community posts claim successful set up of build tools without Microsoft Visual Studio. The most promising thread I found was this one, describing a setup with Microsoft Visual Studio Code: <a href="https://answers.unrealengine.com/questions/761885/possibilities-of-coding-with-microsoft-visual-stud.html" class="uri">https://answers.unrealengine.com/questions/761885/possibilities-of-coding-with-microsoft-visual-stud.html</a></p>
-<p>According to the post, Epic Games has some project-setup support for Microsoft Visual Studio Code, a slim code editor environment that does not include any build tools. Using Micrsoft Visual Studio Code lets me focus on the one battle of adding a C++ compiler, so I am starting here instead of jumping straight to a Vim setup.</p>
-<p>Once I have a working environment with Microsoft Visual Studio Code and the Unreal Engine, I’ll replace Microsoft Visual Studio Code with Vim.</p>
+<p>According to the post, Epic Games has some project-setup support for Microsoft Visual Studio Code, a slim code editor environment that does not include any build tools. Using Micrsoft Visual Studio Code lets me focus on the one battle of adding a C++ compiler, so I am starting here instead of jumping straight to a Vim setup. Once I have a working environment with Microsoft Visual Studio Code and the Unreal Engine, I’ll replace Microsoft Visual Studio Code with Vim.</p>
+<p>I want to build my game for Windows, because all four of my computers, including my very expensive VR rig, are running Windows as the primary OS, and it is what my son is used to.</p>
+<p>Up to now, my C dev work is ultimately for an embedded target. I only build on my host Windows computer to run the test suite. This is not an <em>application</em> I need to deploy to other computers. Anyone else running my test suite is going to build the TestSuite.exe from source. Building the test suite on Windows makes it sound like I already know how to compile C/C++ on Windows, but that is not the case. I do all of this work in the POSIX environment provided by Cygwin. Such executables do not run without the Cygwin dlls. The simplest deployment option is for the other Windows computers to install Cygwin. I can do this for the computers I own, but this is unrealistic for sharing my games with friends.</p>
+<p>There are two choices: MinGW/MSYS2 and MSVC (Microsoft Visual C++).</p>
+<p>At first glance MinGW/MSYS2 seems similar to Cygwin. MinGW stands for Minimalist GNU for Windows, meaning it provides the GNU utilies, such as gcc, in a Windows-compatible form. MSYS2 replaces MSYS. MSYS2 provides additional tools for having a POSIX environment.</p>
+<p>The difference is in the goal. Cygwin provides developers with a POSIX environment on Windows. MSYS2 is for Linux developers to build Windows ports of their Linux software. This site explains how MSYS2 differs from Cygwin: <a href="https://github.com/msys2/msys2/wiki/How-does-MSYS2-differ-from-Cygwin" class="uri">https://github.com/msys2/msys2/wiki/How-does-MSYS2-differ-from-Cygwin</a></p>
+<blockquote>
+<p>Cygwin tries to bring a POSIX-compatible environment to Windows so that most software that runs on unices will build and run on Cygwin without any significant modifications. Cygwin provides a large collection of packages containing such software, and libraries for their development.</p>
+<p>MSYS2 tries to provide an environment for building native Windows software. MSYS2 provides a large collection of packages containing such software, and libraries for their development. As a large portion of the software uses GNU build tools which are tightly coupled to the unix world, this environment is also POSIX-compatible, and is in fact based on Cygwin.</p>
+</blockquote>
+<p>So one possible setup is for me to ignore Unreal Engine and Visual Studio entirely, continue using Cygwin for development, but also install MSYS2 for my final native Windows builds.</p>
+<h1 id="msvc-means-many-things">MSVC means many things</h1>
+<p>MSVC is definitely the more industry standard choice.</p>
+<p>What is confusing is that MSVC is an IDE, not just a set of build tools. I think this is where the community of hobbyists struggles. Microsoft is targeting developers used to all-in-one solutions. Linux users, or weirdos like me who use Cygwin, are used to composable utilities, patching them together for the unique configuration that suits their needs. Neither approach is better, it always depends on context. Windows users unfamiliar with the composable-utility approach see this as death by a thousand tools. For the simplicity of installing one tool, they are willing to let Microsoft dictate how they should work.</p>
+<p>Microsoft recognizes that developers do not want to be locked into Microsoft Visual Studio, so they modified the Visual Studio installer. The confusing bit is that this only appears in a blog post. It does not appear prominently anywhere on their download page. And of course any guidance from Microsoft or Epic Games recommends people use Microsoft Visual Studio in its entirety. The assumption is that you do not know how to build your own project from source and you do not already have your own editor/IDE that you want to use.</p>
+<p>So it turns out the Visual Studio installer acts similar to the Cygwin package manager. It is an executable you run anytime to you want to modify your existing installation. Start with the <em>core</em>. This is only 600MB. Then as you find you need more, run the installer and select the components you need.</p>
+<ul>
+<li><code>Game development with C++</code> takes 5.49GB, 2.7GB if you exclude the Windows 10 SDK
+<ul>
+<li>included:
+<ul>
+<li>Visual Studio C++ core features</li>
+<li>Windows Universal C Runtime</li>
+<li>Visual C++ 2017 Redistributable Update</li>
+<li>VC++ 2017 version 15.x latest v141 tools</li>
+</ul></li>
+<li>optional:
+<ul>
+<li>C++ profiling tools</li>
+<li>Windows 10 SDK</li>
+<li>Cocos</li>
+<li>Unreal Engine installer</li>
+<li>Visual Studio Android support for Unreal Engine</li>
+</ul></li>
+</ul></li>
+<li><code>Desktop development with C++</code> takes 5.83GB, 2.99GB if you exclude the Windows 10 SDK, and 1.1GB if you exclude all of the optional items
+<ul>
+<li>included:
+<ul>
+<li>Visual Studio C++ core features</li>
+</ul></li>
+<li>optional
+<ul>
+<li>Just-In-Time debugger</li>
+<li>VC++ 2017 version 15.x latest v141 tools</li>
+<li>C++ profiling tools</li>
+<li>Windows 10 SDK</li>
+<li>Visual C++ tools for CMake</li>
+<li>Visual C++ ATL for x86 and x64</li>
+<li>Test Adapter for Boost.Test</li>
+<li>Test Adapter for Google.Test</li>
+</ul></li>
+</ul></li>
+<li><code>Linux development with C++</code> takes 5.24GB
+<ul>
+<li>included:
+<ul>
+<li>Visual Studio C++ core features</li>
+<li>Windows Universal C Runtime</li>
+<li>Visual C++ for Linux Development</li>
+</ul></li>
+<li>optional:
+<ul>
+<li>Visual C++ tools for CMake and Linux</li>
+<li>Embedded and IoT Development</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>You can run Visual Studio with just the <em>core</em>. This is different from Visual Studio Code, the lean text editor/IDE.</p>
+<ul>
+<li>[ ] determine if you can compile with just this, I suspect not</li>
+</ul>
+<p>The next step up would be to select the <code>Desktop development with C++</code> and remove all of the optional components.</p>
+<ul>
+<li>[ ] determine if you can compile with just this</li>
+</ul>
+<h1 id="msys2-vs-msvc">MSYS2 vs MSVC</h1>
+<p>Assume for the moment that I am able to build and deploy native Windows applications with MSYS2 or MSVC with equal success. I am not referring to the experience of installing a binary on an unknown Windows target, not the build experience.</p>
+<p>MSVC feels like I’m jumping through a lot of hoops just to do what I’m used to doing now with my Vim, gcc, and make. MSYS2 sounds like I can continue developing as usual and just get the Windows build piece when I need it.</p>
+<h1 id="unreal-engine-vs-no-engine-at-all">Unreal Engine vs No engine at all</h1>
+<p>It will be interesting to see if Unreal recognizes g++ after I install MSYS2. If not, I think I’ll abandon Unreal for now and just stick with SDL2 and OpenGL. So the final set of tools I need for game development is looking like this:</p>
+<ul>
+<li>IDE:
+<ul>
+<li>Cygwin</li>
+<li>Vim</li>
+</ul></li>
+<li>Compiler:
+<ul>
+<li>Cygwin</li>
+<li>gcc / clang</li>
+</ul></li>
+<li>Debugger:
+<ul>
+<li>Cygwin</li>
+<li>gdb</li>
+</ul></li>
+<li>Development builds:
+<ul>
+<li>Cygwin</li>
+<li>Make</li>
+<li>CMake?</li>
+</ul></li>
+<li>libs:
+<ul>
+<li>SDL2</li>
+<li>OpenGL</li>
+</ul></li>
+<li>Release Build:
+<ul>
+<li>MSYS2</li>
+<li>gcc / clang</li>
+<li>SDL2.dll (do not statically link to SDL2)</li>
+</ul></li>
+</ul>
 <h1 id="tasks">Tasks</h1>
 <ul>
 <li>[ ] install Unreal Engine and Microsoft Visual Studio Code with C++ extension</li>

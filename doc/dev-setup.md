@@ -30,8 +30,8 @@ According to the post, Epic Games has some project-setup support for Microsoft
 Visual Studio Code, a slim code editor environment that does not include any
 build tools. Using Micrsoft Visual Studio Code lets me focus on the one battle
 of adding a C++ compiler, so I am starting here instead of jumping straight to a
-Vim setup. Once I have a working environment with Microsoft Visual Studio Code and the
-Unreal Engine, I'll replace Microsoft Visual Studio Code with Vim.
+Vim setup. Once I have a working environment with Microsoft Visual Studio Code
+and the Unreal Engine, I'll replace Microsoft Visual Studio Code with Vim.
 
 I want to build my game for Windows, because all four of my computers, including
 my very expensive VR rig, are running Windows as the primary OS, and it is what
@@ -43,21 +43,40 @@ need to deploy to other computers. Anyone else running my test suite is going to
 build the TestSuite.exe from source. Building the test suite on Windows makes it
 sound like I already know how to compile C/C++ on Windows, but that is not the
 case. I do all of this work in the POSIX environment provided by Cygwin. Such
-executables do not run outside of Cygwin. A native Windows build (if I am even
-saying this correctly) cannot be built from within Cygwin.
+executables do not run without the Cygwin dlls. The simplest deployment option
+is for the other Windows computers to install Cygwin. I can do this for the
+computers I own, but this is unrealistic for sharing my games with friends.
 
-There are two choices: MinGW and MSVC (Microsoft Visual C++).
+There are two choices: MinGW/MSYS2 and MSVC (Microsoft Visual C++).
 
-I get the sense that MinGW is a good choice for pure educational use. Third
-parties will make sure they are compatible with MSVC and provide support to make
-MSVC work. MinGW support is more spotty, and may not continue forever. I'd just
-be opening myself up to more headaches in struggling to make my weirdo build
-system.
+At first glance MinGW/MSYS2 seems similar to Cygwin. MinGW stands for
+Minimalist GNU for Windows, meaning it provides the GNU utilies, such as gcc,
+in a Windows-compatible form. MSYS2 replaces MSYS. MSYS2 provides additional
+tools for having a POSIX environment.
 
-MSVC is the right choice if I want to make a game that is going to run on other
-computers.
+The difference is in the goal. Cygwin provides developers with a POSIX
+environment on Windows. MSYS2 is for Linux developers to build Windows ports of
+their Linux software. This site explains how MSYS2 differs from Cygwin:
+<https://github.com/msys2/msys2/wiki/How-does-MSYS2-differ-from-Cygwin>
+
+> Cygwin tries to bring a POSIX-compatible environment to Windows so that most
+> software that runs on unices will build and run on Cygwin without any
+> significant modifications. Cygwin provides a large collection of packages
+> containing such software, and libraries for their development.
+> 
+> MSYS2 tries to provide an environment for building native Windows software.
+> MSYS2 provides a large collection of packages containing such software, and
+> libraries for their development. As a large portion of the software uses GNU
+> build tools which are tightly coupled to the unix world, this environment is
+> also POSIX-compatible, and is in fact based on Cygwin.
+
+So one possible setup is for me to ignore Unreal Engine and Visual Studio
+entirely, continue using Cygwin for development, but also install MSYS2 for my
+final native Windows builds.
 
 # MSVC means many things
+MSVC is definitely the more industry standard choice.
+
 What is confusing is that MSVC is an IDE, not just a set of build tools. I think
 this is where the community of hobbyists struggles. Microsoft is targeting
 developers used to all-in-one solutions. Linux users, or weirdos like me who use
@@ -124,6 +143,42 @@ The next step up would be to select the `Desktop development with C++` and
 remove all of the optional components.
 
 - [ ] determine if you can compile with just this
+
+# MSYS2 vs MSVC
+Assume for the moment that I am able to build and deploy native Windows
+applications with MSYS2 or MSVC with equal success. I am not referring to the
+experience of installing a binary on an unknown Windows target, not the build
+experience.
+
+MSVC feels like I'm jumping through a lot of hoops just to do what I'm used to
+doing now with my Vim, gcc, and make. MSYS2 sounds like I can continue
+developing as usual and just get the Windows build piece when I need it.
+
+# Unreal Engine vs No engine at all
+It will be interesting to see if Unreal recognizes g++ after I install MSYS2. If
+not, I think I'll abandon Unreal for now and just stick with SDL2 and OpenGL. So
+the final set of tools I need for game development is looking like this:
+
+- IDE:
+    - Cygwin
+    - Vim
+- Compiler:
+    - Cygwin
+    - gcc / clang
+- Debugger:
+    - Cygwin
+    - gdb
+- Development builds:
+    - Cygwin
+    - Make
+    - CMake?
+- libs:
+    - SDL2
+    - OpenGL
+- Release Build:
+    - MSYS2
+    - gcc / clang
+    - SDL2.dll (do not statically link to SDL2)
 
 # Tasks
 - [ ] install Unreal Engine and Microsoft Visual Studio Code with C++ extension
