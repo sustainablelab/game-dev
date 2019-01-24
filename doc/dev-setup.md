@@ -1,11 +1,15 @@
-% Setup Development Tools
+% Setup Your Dev Tools
 % Mike Gazes
-% January 20th, 2019
+
+# Doc history
+January 20th, 2019: Start doc.
+January 23rd, 2019: Visual Studio installer is like a package manager.
 
 # Context
 Epic Games supports development under Microsoft Visual Studio. The *free*
 version is Microsoft Visual Studio Community 2017. This installs the necessary
-build tools, but a lot of other stuff as well.
+build tools, but a lot of other stuff as well. If you know what you are doing,
+you can cut down on the size of the install. More on that later.
 
 While not officially supported by Epic Games, community posts claim successful
 set up of build tools without Microsoft Visual Studio. The most promising thread
