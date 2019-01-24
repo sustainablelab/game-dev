@@ -1,6 +1,9 @@
 % Unreal Engine
 % Mike Gazes
-% January 20th, 2019
+
+# Doc history
+January 20th, 2019: Start doc.
+January 23rd, 2019: Visual Studio installer is like a package manager.
 
 # First time
 Start the Unreal Engine for the first time. It is a project management
@@ -35,3 +38,6 @@ project with a *C++* template because Unreal does not know where to find my C++
 compiler.
 
 First, create a project with a *Blueprint* template.
+
+# Install a C++ compiler
+
