@@ -239,3 +239,108 @@ pandoc -f markdown doc/dev-setup.md -s -o doc/dev-setup.html -c pandoc.css --toc
 ```
 Note the style is included with `-c pandoc.css` and not `-c doc/pandoc.css`,
 even though `pandoc.css` is in the `doc` folder.
+
+## MSYS2
+- go to <https://www.msys2.org/>
+- download the 64-bit version of MSYS2:` msys2-x86_64-YYYMMDD.exe`
+- it is not a large download, less than 1GB
+- the rest of these instructions are on this page as well
+- install by running the downloaded .exe, this does not take up much additional
+  hard drive space, so the *less than 1GB* still holds true
+- run MSYS2 when installation finishes, this opens a `bash` terminal
+- run this command to *update the package database and core system packages*:
+```bash
+pacman -Syuu
+```
+- as prompted, close the bash window (click on the "x") and open it up again
+- keep running the `pacman -Syuu` command and restarting until there is nothing
+  else to update
+- I made an alias `msys` in my PowerShell profile to make it easy to launch an
+  msys bash terminal from PowerShell
+
+- to search for a library you want to install:
+```bash
+pacman -Ss lib_name
+```
+- for example, I want SDL2:
+```bash
+pacman -Ss SDL2
+```
+I get this response:
+```bash
+mingw32/mingw-w64-i686-SDL2 2.0.9-1
+    A library for portable low-level access to a video framebuffer, audio
+    output, mouse, and keyboard (Version 2) (mingw-w64)
+mingw32/mingw-w64-i686-SDL2_gfx 1.0.4-1
+    SDL graphics drawing primitives and other support functions (Version 2)
+    (mingw-w64)
+mingw32/mingw-w64-i686-SDL2_image 2.0.4-1
+    A simple library to load images of various formats as SDL surfaces (Version
+    2)
+mingw32/mingw-w64-i686-SDL2_mixer 2.0.4-1
+    A simple multi-channel audio mixer (Version 2) (mingw-w64)
+mingw32/mingw-w64-i686-SDL2_net 2.0.1-1
+    A small sample cross-platform networking library (Version 2) (mingw-w64)
+mingw32/mingw-w64-i686-SDL2_ttf 2.0.14-1
+    A library that allows you to use TrueType fonts in your SDL applications
+    (Version 2) (mingw-w64)
+mingw32/mingw-w64-i686-smpeg2 2.0.0-5
+    SDL2 MPEG Player Library (mingw-w64)
+mingw64/mingw-w64-x86_64-SDL2 2.0.9-1
+    A library for portable low-level access to a video framebuffer, audio
+    output, mouse, and keyboard (Version 2) (mingw-w64)
+mingw64/mingw-w64-x86_64-SDL2_gfx 1.0.4-1
+    SDL graphics drawing primitives and other support functions (Version 2)
+    (mingw-w64)
+mingw64/mingw-w64-x86_64-SDL2_image 2.0.4-1
+    A simple library to load images of various formats as SDL surfaces (Version
+    2)
+mingw64/mingw-w64-x86_64-SDL2_mixer 2.0.4-1
+    A simple multi-channel audio mixer (Version 2) (mingw-w64)
+mingw64/mingw-w64-x86_64-SDL2_net 2.0.1-1
+    A small sample cross-platform networking library (Version 2) (mingw-w64)
+mingw64/mingw-w64-x86_64-SDL2_ttf 2.0.14-1
+    A library that allows you to use TrueType fonts in your SDL applications
+    (Version 2) (mingw-w64)
+mingw64/mingw-w64-x86_64-smpeg2 2.0.0-5
+    SDL2 MPEG Player Library (mingw-w64)
+```
+- anything starting with mingw is a library I can install
+- I only want mingw64 libraries
+```bash
+pacman -Sy mingw-w64-x86_64-SDL2
+```
+And I get this:
+```bash
+:: Synchronizing package databases...
+ mingw32 is up to date
+ mingw64 is up to date
+ msys is up to date
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (9) mingw-w64-x86_64-gcc-libs-8.2.1+20181214-1  mingw-w64-x86_64-gmp-6.1.2-1  mingw-w64-x86_64-libiconv-1.15-3
+             mingw-w64-x86_64-libwinpthread-git-7.0.0.5273.3e5acf5d-1  mingw-w64-x86_64-mpc-1.1.0-1  mingw-w64-x86_64-mpfr-4.0.1-2
+             mingw-w64-x86_64-vulkan-headers-1.1.92-1  mingw-w64-x86_64-vulkan-loader-1.1.92-1  mingw-w64-x86_64-SDL2-2.0.9-1
+```
+There were other `SDL2_blah` items that were not installed:
+```bash
+pacman -Sy mingw-w64-x86_64-SDL2_gfx mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer
+```
+There is no wild-card option to install everything that is `SDL2_` blah, but
+instructions here
+<https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2>
+show how to install everything returned by a search.
+
+The site also explains how to install and build a library from the command-line
+using `wget` to download, `tar` to extract, and `make` to build.
+
+More detailed `pacman` examples are here:
+<https://github.com/msys2/msys2/wiki/Using-packages>
+
+## SDL2
+- after the package installation I did within `MSYS2`, do I still need to do the
+  next step?
+- download the source and the runtime binary from here: <https://libsdl.org/download-2.0.php>
+
+
